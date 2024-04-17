@@ -145,20 +145,27 @@ CREATE TABLE catalogs (
 -- Insert data into your database that reflects the sample data shown above
 -- Use hard-coded foreign key IDs when necessary
 INSERT INTO movies (title, year, rating, studio_id)
-    VALUES ("Batman Begins", 2005, "PG-13", 1); 
-    VALUES ("The Dark Knight", 2008, "PG-13", 1);
-    VALUES ("The Dark Knight Rises", 2012, "PG-13", 1);
+    VALUES
+        ("Batman Begins", 2005, "PG-13"),
+        ("The Dark Knight", 2008, "PG-13"),
+        ("The Dark Knight Rises", 2012, "PG-13");
 
 INSERT INTO studios (name)
     VALUES ("Warner Bros.");
 
-INSERT INTO actors (name, character, catalog_id)
-    VALUES ("Christian Bale","Bruce Wayne", 1);
-    VALUES ("Michael Caine", "Alfred", 1);
-    VALUES ("Liam Neeson", "Ra's Al Ghul", 1);
-    VALUES ("Katie Holmes", "Rachel Dawes", 1);
-    VALUES ("Gary Oldman","Comissoner Gordon", 1);
-    VALUES ();
+INSERT INTO actors (name, character)
+    VALUES
+        ("Christian Bale","Bruce Wayne"),
+        ("Michael Caine", "Alfred"),
+        ("Liam Neeson", "Ra's Al Ghul"),
+        ("Katie Holmes", "Rachel Dawes"),
+        ("Gary Oldman","Comissoner Gordon"),
+        ("Heath Ledger","Joker"),
+        ("Aaron Eckhart","Harvery Dent"),
+        ("Maggie Gyllenhaal", "Rachel Dawes"),
+        ("Tom Hardy", "Bane"),
+        ("Joseph Gordon-Levitt", "John Blake"),
+        ("Anne Hathaway","Selina Kyle");
 
 -- Prints a header for the movies output
 .print "Movies"
@@ -166,7 +173,9 @@ INSERT INTO actors (name, character, catalog_id)
 .print ""
 
 -- The SQL statement for the movies output
-SELECT * FROM movies;
+SELECT movies.title, movies.year, movies.rating, studios.name
+FROM movies
+    INNER JOIN studios ON movie.studio_id = studio,id;
 -- Prints a header for the cast output
 .print ""
 .print "Top Cast"
