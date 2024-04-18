@@ -133,8 +133,7 @@ CREATE TABLE studios (
 CREATE TABLE actors (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT,
-    character TEXT,
-    movie_id INTEGER
+    character TEXT
 );
 
 CREATE TABLE catalogs (
@@ -146,9 +145,9 @@ CREATE TABLE catalogs (
 -- Use hard-coded foreign key IDs when necessary
 INSERT INTO movies (title, year, rating, studio_id)
     VALUES
-        ("Batman Begins", 2005, "PG-13"),
-        ("The Dark Knight", 2008, "PG-13"),
-        ("The Dark Knight Rises", 2012, "PG-13");
+        ("Batman Begins", 2005, "PG-13", 1),
+        ("The Dark Knight", 2008, "PG-13", 1),
+        ("The Dark Knight Rises", 2012, "PG-13", 1);
 
 INSERT INTO studios (name)
     VALUES ("Warner Bros.");
@@ -167,6 +166,24 @@ INSERT INTO actors (name, character)
         ("Joseph Gordon-Levitt", "John Blake"),
         ("Anne Hathaway","Selina Kyle");
 
+INSERT INTO catalogs (movie_id, actor_id)
+    VALUES
+        (1, 1),
+        (1, 2),
+        (1, 3),
+        (1, 4),
+        (1, 5),
+        (2, 1),
+        (2, 6),
+        (2, 7),
+        (2, 2),
+        (2, 8),
+        (3, 1),
+        (3, 5),
+        (3, 9),
+        (3, 10),
+        (3, 11);
+
 -- Prints a header for the movies output
 .print "Movies"
 .print "======"
@@ -175,13 +192,15 @@ INSERT INTO actors (name, character)
 -- The SQL statement for the movies output
 SELECT movies.title, movies.year, movies.rating, studios.name
 FROM movies
-    INNER JOIN studios ON movies.studio_id = studios.id;
+    INNER JOIN studios ON studios.id = movies.studio_id;
 -- Prints a header for the cast output
 .print ""
 .print "Top Cast"
 .print "========"
 .print ""
-
-
 -- The SQL statement for the cast output
--- TODO!
+SELECT movies.title, actors.name, actors.character
+FROM catalogs
+    INNER JOIN movies ON movies.id = catalogs.movie_id
+    INNER JOIN actors ON actors.id = catalogs.actor_id
+ORDER BY movies.title;
