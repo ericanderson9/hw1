@@ -175,7 +175,7 @@ INSERT INTO actors (name, character)
 -- The SQL statement for the movies output
 SELECT movies.title, movies.year, movies.rating, studios.name
 FROM movies
-    INNER JOIN studios ON movie.studio_id = studio,id;
+    INNER JOIN studios ON movies.studio_id = studios.id;
 -- Prints a header for the cast output
 .print ""
 .print "Top Cast"
